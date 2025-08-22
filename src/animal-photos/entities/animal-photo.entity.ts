@@ -1,7 +1,9 @@
+import { Animal } from 'src/animals/entities/animal.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -12,6 +14,9 @@ export class AnimalPhoto {
 
   @Column({ type: 'text' })
   photo_url: string;
+
+  @ManyToOne(() => Animal, (animal) => animal.photos, { onDelete: 'CASCADE' })
+  animal: Animal;
 
   @CreateDateColumn()
   created_at: Date;

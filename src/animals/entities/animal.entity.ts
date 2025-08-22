@@ -1,7 +1,9 @@
+import { AnimalPhoto } from 'src/animal-photos/entities/animal-photo.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -33,6 +35,9 @@ export class Animal {
 
   @Column({ type: 'enum', enum: ['available', 'adopted', 'in progress'] })
   status: 'available' | 'adopted' | 'in progress';
+
+  @OneToMany(() => AnimalPhoto, (photo) => photo.animal)
+  photos: AnimalPhoto[];
 
   @CreateDateColumn()
   created_at: Date;
