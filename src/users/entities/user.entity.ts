@@ -1,7 +1,9 @@
+import { Animal } from 'src/animals/entities/animal.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -27,6 +29,9 @@ export class User {
 
   @Column({ type: 'enum', enum: ['user', 'admin'], default: 'user' })
   user_type: 'user' | 'admin';
+
+  @OneToMany(() => Animal, (animal) => animal.ong)
+  animais: Animal[];
 
   @CreateDateColumn()
   created_at: Date;
