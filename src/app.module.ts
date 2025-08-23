@@ -5,9 +5,27 @@ import { UsersModule } from './users/users.module';
 import { AnimalsModule } from './animals/animals.module';
 import { AnimalPhotosModule } from './animal-photos/animal-photos.module';
 import { AdoptionsModule } from './adoptions/adoptions.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [UsersModule, AnimalsModule, AnimalPhotosModule, AdoptionsModule],
+  imports: [
+    ConfigModule.forRoot(), // Carrega as variáveis de ambiente
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: process.env.DB_HOST,
+      port: process.env.DB_PORT ? parseInt(process.env.DB_PORT) : 5432,
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_DATABASE,
+      entities: ['dist/**/*.entity{.ts,.js}'],
+      synchronize: true,
+    }),
+    UsersModule,
+    AnimalsModule,
+    AnimalPhotosModule,
+    AdoptionsModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
