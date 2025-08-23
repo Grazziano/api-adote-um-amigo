@@ -7,6 +7,7 @@ import { AnimalPhotosModule } from './animal-photos/animal-photos.module';
 import { AdoptionsModule } from './adoptions/adoptions.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { AdoptionRequestsModule } from './adoption-requests/adoption-requests.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { ConfigModule } from '@nestjs/config';
     AnimalsModule,
     AnimalPhotosModule,
     AdoptionsModule,
+    AdoptionRequestsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
