@@ -33,7 +33,7 @@ export class User {
   user_type: 'user' | 'admin';
 
   @OneToMany(() => Animal, (animal) => animal.ong)
-  animais: Animal[];
+  animals: Animal[];
 
   @OneToMany(() => AdoptionRequest, (request) => request.adopter)
   adoptionRequests: AdoptionRequest[];

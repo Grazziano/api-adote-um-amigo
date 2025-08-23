@@ -40,7 +40,7 @@ export class Animal {
   @Column({ type: 'enum', enum: ['available', 'adopted', 'in progress'] })
   status: 'available' | 'adopted' | 'in progress';
 
-  @ManyToOne(() => User, (user) => user.animais)
+  @ManyToOne(() => User, (user) => user.animals)
   ong: User;
 
   @OneToMany(() => AnimalPhoto, (photo) => photo.animal)
