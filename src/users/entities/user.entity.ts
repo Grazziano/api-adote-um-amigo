@@ -1,3 +1,4 @@
+import { AdoptionRequest } from 'src/adoption-requests/entities/adoption-request.entity';
 import { Adoption } from 'src/adoptions/entities/adoption.entity';
 import { Animal } from 'src/animals/entities/animal.entity';
 import {
@@ -33,6 +34,9 @@ export class User {
 
   @OneToMany(() => Animal, (animal) => animal.ong)
   animais: Animal[];
+
+  @OneToMany(() => AdoptionRequest, (request) => request.adopter)
+  adoptionRequests: AdoptionRequest[];
 
   @OneToMany(() => Adoption, (adoption) => adoption.adopter)
   adoptions: Adoption[];

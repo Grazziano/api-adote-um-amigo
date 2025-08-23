@@ -1,3 +1,4 @@
+import { AdoptionRequest } from 'src/adoption-requests/entities/adoption-request.entity';
 import { Adoption } from 'src/adoptions/entities/adoption.entity';
 import { AnimalPhoto } from 'src/animal-photos/entities/animal-photo.entity';
 import { User } from 'src/users/entities/user.entity';
@@ -44,6 +45,9 @@ export class Animal {
 
   @OneToMany(() => AnimalPhoto, (photo) => photo.animal)
   photos: AnimalPhoto[];
+
+  @OneToMany(() => AdoptionRequest, (request) => request.animal)
+  adoptionRequests: AdoptionRequest[];
 
   @OneToMany(() => Adoption, (adoption) => adoption.animal)
   adoptions: Adoption[];
