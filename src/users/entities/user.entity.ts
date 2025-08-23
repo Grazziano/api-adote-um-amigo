@@ -1,3 +1,4 @@
+import { Adoption } from 'src/adoptions/entities/adoption.entity';
 import { Animal } from 'src/animals/entities/animal.entity';
 import {
   Column,
@@ -32,6 +33,9 @@ export class User {
 
   @OneToMany(() => Animal, (animal) => animal.ong)
   animais: Animal[];
+
+  @OneToMany(() => Adoption, (adoption) => adoption.adopter)
+  adoptions: Adoption[];
 
   @CreateDateColumn()
   created_at: Date;
