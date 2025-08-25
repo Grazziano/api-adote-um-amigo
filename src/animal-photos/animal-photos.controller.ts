@@ -27,7 +27,7 @@ export class AnimalPhotosController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.animalPhotosService.findOne(+id);
+    return this.animalPhotosService.findOne(id);
   }
 
   @Patch(':id')
@@ -35,11 +35,11 @@ export class AnimalPhotosController {
     @Param('id') id: string,
     @Body() updateAnimalPhotoDto: UpdateAnimalPhotoDto,
   ) {
-    return this.animalPhotosService.update(+id, updateAnimalPhotoDto);
+    return this.animalPhotosService.update(id, updateAnimalPhotoDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.animalPhotosService.remove(+id);
+    return this.animalPhotosService.remove(id);
   }
 }
