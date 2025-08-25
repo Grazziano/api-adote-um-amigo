@@ -8,6 +8,7 @@ import { AdoptionsModule } from './adoptions/adoptions.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { AdoptionRequestsModule } from './adoption-requests/adoption-requests.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { AdoptionRequestsModule } from './adoption-requests/adoption-requests.mo
     AnimalPhotosModule,
     AdoptionsModule,
     AdoptionRequestsModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
