@@ -30,6 +30,10 @@ export class UsersService {
     return `This action returns all users`;
   }
 
+  async findByEmail(email: string) {
+    return this.userRepository.findOne({ where: { email } });
+  }
+
   findOne(id: number) {
     return `This action returns a #${id} user`;
   }
