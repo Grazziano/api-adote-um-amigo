@@ -35,7 +35,7 @@ export class AnimalsService {
     return this.animalsRepository.find({ relations: ['ong', 'photos'] });
   }
 
-  async findOne(id: string) {
+  async findOne(id: string): Promise<Animal> {
     const animal = await this.animalsRepository.findOne({
       where: { id },
       relations: ['ong', 'photos'],
@@ -48,11 +48,17 @@ export class AnimalsService {
     return animal;
   }
 
-  update(id: number, updateAnimalDto: UpdateAnimalDto) {
-    return `This action updates a #${id} animal`;
+  async update(id: string, updateAnimalDto: UpdateAnimalDto): Promise<Animal> {
+    const animal = await this.findOne(id);
+
+    Object.assign(animal, updateAnimalDto);
+
+    return this.animalsRepository.save(animal);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} animal`;
+  async remove(id: string): Promise<void> {
+    const animal = await this.findOne(id);
+
+    await this.animalsRepository.remove(animal);
   }
 }
