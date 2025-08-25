@@ -37,7 +37,11 @@ export class Animal {
   @Column({ nullable: true, type: 'text' })
   description: string;
 
-  @Column({ type: 'enum', enum: ['available', 'adopted', 'in progress'] })
+  @Column({
+    type: 'enum',
+    enum: ['available', 'adopted', 'in progress'],
+    default: 'available',
+  })
   status: 'available' | 'adopted' | 'in progress';
 
   @ManyToOne(() => User, (user) => user.animals)
