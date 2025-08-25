@@ -15,7 +15,7 @@ export class AnimalsService {
     private readonly usersRepository: Repository<User>,
   ) {}
 
-  async create(createAnimalDto: CreateAnimalDto) {
+  async create(createAnimalDto: CreateAnimalDto): Promise<Animal> {
     const ong = await this.usersRepository.findOne({
       where: { id: createAnimalDto.ong_id },
     });
@@ -31,12 +31,21 @@ export class AnimalsService {
     return this.animalsRepository.save(animal);
   }
 
-  findAll() {
-    return `This action returns all animals`;
+  async findAll(): Promise<Animal[]> {
+    return this.animalsRepository.find({ relations: ['ong', 'photos'] });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} animal`;
+  async findOne(id: string) {
+    const animal = await this.animalsRepository.findOne({
+      where: { id },
+      relations: ['ong', 'photos'],
+    });
+
+    if (!animal) {
+      throw new NotFoundException(`Animal ${id} nao encontrado`);
+    }
+
+    return animal;
   }
 
   update(id: number, updateAnimalDto: UpdateAnimalDto) {
