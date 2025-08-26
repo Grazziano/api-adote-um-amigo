@@ -80,32 +80,54 @@ npm run start:prod
 O projeto inclui os seguintes containers:
 - `api` - Aplicação NestJS
 - `postgres` - Banco de dados PostgreSQL
-- `pgadmin` - Interface web para gerenciamento do PostgreSQL (opcional)
+<!-- - `pgadmin` - Interface web para gerenciamento do PostgreSQL (opcional) -->
 
-### Variáveis de Ambiente
+Este projeto utiliza **Docker** e **Docker Compose** para facilitar a execução da API NestJS e do banco de dados PostgreSQL.
 
-Crie um arquivo `.env` na raiz do projeto:
+### Pré-requisitos
 
-```env
-# App
-PORT=3000
-NODE_ENV=development
+* [Docker](https://www.docker.com/get-started) instalado.
+* [Docker Compose](https://docs.docker.com/compose/) instalado.
 
-# Database
-POSTGRES_HOST=postgres
-POSTGRES_PORT=5432
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=password
-POSTGRES_DB=adote_um_amigo
+### Passos para rodar a aplicação
 
-# JWT
-JWT_SECRET=seu_jwt_super_secreto_aqui
-JWT_EXPIRATION=7d
+1. **Crie o arquivo `.env`** na raiz do projeto com as variáveis de ambiente necessárias (exemplo):
 
-# Upload
-UPLOAD_DEST=./uploads
-MAX_FILE_SIZE=5242880
-```
+   ```env
+   DATABASE_HOST=db
+   DATABASE_PORT=5432
+   DATABASE_USER=postgres
+   DATABASE_PASSWORD=postgres
+   DATABASE_NAME=adote_um_amigo
+   ```
+
+2. Suba os containers:
+
+   ```bash
+   docker-compose up --build
+   ```
+
+   * O parâmetro `--build` garante que o container será reconstruído.
+   * Para rodar em background (modo daemon):
+
+     ```bash
+     docker-compose up -d
+     ```
+
+3. Acesse a aplicação:
+
+   * API NestJS: [http://localhost:3000](http://localhost:3000)
+   * Banco de dados PostgreSQL: `localhost:5432`
+
+4. Parar os containers:
+
+   ```bash
+   docker-compose down
+   ```
+
+5. Persistência de dados:
+
+   * O banco de dados usa um volume Docker chamado `pgdata` para persistir os dados mesmo após reiniciar os containers.
 
 ## 🗃️ Estrutura do Projeto
 
