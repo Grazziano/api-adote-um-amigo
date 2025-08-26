@@ -29,7 +29,7 @@ export class AdoptionRequestsController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.adoptionRequestsService.findOne(+id);
+    return this.adoptionRequestsService.findOne(id);
   }
 
   @Patch(':id')
@@ -37,11 +37,11 @@ export class AdoptionRequestsController {
     @Param('id') id: string,
     @Body() updateAdoptionRequestDto: UpdateAdoptionRequestDto,
   ) {
-    return this.adoptionRequestsService.update(+id, updateAdoptionRequestDto);
+    return this.adoptionRequestsService.update(id, updateAdoptionRequestDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.adoptionRequestsService.remove(+id);
+    return this.adoptionRequestsService.remove(id);
   }
 }

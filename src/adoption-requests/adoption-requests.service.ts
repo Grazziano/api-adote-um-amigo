@@ -20,7 +20,9 @@ export class AdoptionRequestsService {
     private readonly usersRepository: Repository<User>,
   ) {}
 
-  async create(createAdoptionRequestDto: CreateAdoptionRequestDto) {
+  async create(
+    createAdoptionRequestDto: CreateAdoptionRequestDto,
+  ): Promise<AdoptionRequest> {
     const animal = await this.animalsRepository.findOne({
       where: { id: createAdoptionRequestDto.animalId },
     });
@@ -50,19 +52,36 @@ export class AdoptionRequestsService {
     return this.adoptionRequestsRepository.save(request);
   }
 
-  findAll() {
-    return `This action returns all adoptionRequests`;
+  async findAll(): Promise<AdoptionRequest[]> {
+    return this.adoptionRequestsRepository.find({
+      relations: ['animal', 'adopter'],
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} adoptionRequest`;
+  async findOne(id: string): Promise<AdoptionRequest> {
+    const request = await this.adoptionRequestsRepository.findOne({
+      where: { id },
+      relations: ['animal', 'adopter'],
+    });
+
+    if (!request) {
+      throw new NotFoundException(`Request ${id} não encontrado`);
+    }
+
+    return request;
   }
 
-  update(id: number, updateAdoptionRequestDto: UpdateAdoptionRequestDto) {
-    return `This action updates a #${id} adoptionRequest`;
+  async update(
+    id: string,
+    updateAdoptionRequestDto: UpdateAdoptionRequestDto,
+  ): Promise<AdoptionRequest> {
+    const request = await this.findOne(id);
+    Object.assign(request, updateAdoptionRequestDto);
+    return this.adoptionRequestsRepository.save(request);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} adoptionRequest`;
+  async remove(id: string): Promise<void> {
+    const request = await this.findOne(id);
+    await this.adoptionRequestsRepository.remove(request);
   }
 }
