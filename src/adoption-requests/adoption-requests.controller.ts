@@ -6,11 +6,14 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { AdoptionRequestsService } from './adoption-requests.service';
 import { CreateAdoptionRequestDto } from './dto/create-adoption-request.dto';
 import { UpdateAdoptionRequestDto } from './dto/update-adoption-request.dto';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @Controller('adoption-requests')
 export class AdoptionRequestsController {
   constructor(
